@@ -1,48 +1,33 @@
-cd usr/bin/env bash
+call gradlew build
+if "%ERRORLEVEL%" == "0" goto rename
+echo.
+echo GRADLEW BUILD has errors – breaking work
+goto fail
 
-export CATALINA_HOME=PATH_TO_YOUR_TOMCAT
+:rename
+del build\libs\crud.war
+ren build\libs\tasks-0.0.1-SNAPSHOT.war crud.war
+if "%ERRORLEVEL%" == "0" goto stoptomcat
+echo Cannot rename file
+goto fail
 
-stop_tomcat()
-{
-   $CATALINA_HOME/bin/catalina.sh stop
-}
+:stoptomcat
+call %CATALINA_HOME%\bin\shutdown.bat
 
-start_tomcat()
-{
-   $CATALINA_HOME/bin/catalina.sh start
-   end
-}
+:copyfile
+copy build\libs\crud.war %CATALINA_HOME%\webapps
+if "%ERRORLEVEL%" == "0" goto runtomcat
+echo Cannot copy file
+goto fail
 
-rename() {
-   rm build/libs/crud.war
-   if mv build/libs/tasks-new-version-0.0.1-SNAPSHOT.war build/libs/crud.war; then
-      echo "Successfully renamed file"
-   else
-      echo "Cannot rename file"
-      fail
-   fi
-}
+:runtomcat
+call %CATALINA_HOME%\bin\startup.bat
+goto end
 
-copy_file() {
-   if cp build/libs/crud.war $CATALINA_HOME/webapps; then
-      start_tomcat
-   else
-      fail
-   fi
-}
+:fail
+echo.
+echo There were errors
 
-fail() {
-   echo "There were errors"
-}
-
-end() {
-   echo "Work is finished"
-}
-
-if ./gradlew build; then
-   rename
-   copy_file
-else
-   stop_tomcat
-   fail
-fi
+:end
+echo.
+echo Work is finished.
