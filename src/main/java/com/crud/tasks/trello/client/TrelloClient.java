@@ -1,6 +1,7 @@
 package com.crud.tasks.trello.client;
 
 import com.crud.tasks.domain.TrelloBoardDto;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TrelloClient {
 
     private final RestTemplate restTemplate;
@@ -28,7 +29,7 @@ public class TrelloClient {
     @Value("${trello.app.username}")
     private String trelloUserName;
 
-    public List<TrelloBoardDto> getTrelloBoards() {
+    private List<TrelloBoardDto> getTrelloBoards() {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/kodillaautor/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
