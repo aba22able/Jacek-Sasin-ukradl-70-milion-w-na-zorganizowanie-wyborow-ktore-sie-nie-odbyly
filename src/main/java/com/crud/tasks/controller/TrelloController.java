@@ -21,15 +21,9 @@ public class TrelloController {
     private final TrelloClient trelloClient;
 
     @GetMapping("boards")
-    public void getTrelloBoards()throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void getTrelloBoards() {
 
-        try {
-            Method privateMethod
-                    = TrelloClient.class.getDeclaredMethod("getTrelloBoards");
-
-            privateMethod.setAccessible(true);
-
-            List<TrelloBoardDto> trelloBoards = privateMethod.invoke(trelloClient.getTrelloBoards());
+            List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
             trelloBoards.stream()
                     .filter(name -> name.getName() != null)
@@ -38,9 +32,5 @@ public class TrelloController {
                     .forEach(trelloBoardDto -> {
                         System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
                     });
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }

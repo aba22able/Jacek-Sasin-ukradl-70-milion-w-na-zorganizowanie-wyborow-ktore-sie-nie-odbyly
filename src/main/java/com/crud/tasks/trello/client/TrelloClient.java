@@ -29,14 +29,19 @@ public class TrelloClient {
     @Value("${trello.app.username}")
     private String trelloUserName;
 
-    private List<TrelloBoardDto> getTrelloBoards() {
-        URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/kodillaautor/boards")
+    private URI buildURI()
+    {
+        return UriComponentsBuilder.fromHttpUrl(trelloApiEndpoint + "/members/kodillaautor/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
                 .queryParam("fields", "name,id")
                 .build()
                 .encode()
                 .toUri();
+    }
+
+    public List<TrelloBoardDto> getTrelloBoards() {
+        URI url = buildURI();
 
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
