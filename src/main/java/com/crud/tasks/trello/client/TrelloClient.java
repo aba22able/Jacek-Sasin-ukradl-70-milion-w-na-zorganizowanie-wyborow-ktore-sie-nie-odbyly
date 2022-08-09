@@ -7,7 +7,6 @@ import com.crud.tasks.trello.config.TrelloConfig;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -51,8 +50,6 @@ public class TrelloClient {
             return Collections.emptyList();
         }
     }
-
-
 
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards")
