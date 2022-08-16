@@ -28,13 +28,12 @@ public class EmailScheduler {
         }
 
         simpleEmailService.send(
-                Mail.builder()
-                        .mailTo(adminConfig.getAdminMail())
-                        .subject(SUBJECT)
-                        .message("Currently in database you got: " + size + quantityName)
-                        .toCc("")
-                        .build()
-
-        );
+                new Mail(
+                        adminConfig.getAdminMail(),
+                        SUBJECT,
+                        "Currently in database you got: " + size + " " + quantityName,
+                        "null"
+                )
+            );
     }
 }
