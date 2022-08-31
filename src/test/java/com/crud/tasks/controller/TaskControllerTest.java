@@ -126,7 +126,7 @@ class TaskControllerTest {
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .post("/v1/tasks")
+                        .put("/v1/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
                         .content(jsonContent))
