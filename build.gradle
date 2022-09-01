@@ -18,16 +18,26 @@ jar {
 }
 
 dependencies {
+	implementation 'org.springframework:spring-beans:5.3.22'
+	implementation 'org.springframework:spring-context:5.3.22'
+	implementation 'org.springframework:spring-core:5.3.22'
+	implementation 'org.springframework:spring-web:5.3.22'
+	implementation 'org.springframework:spring-webmvc:5.3.22'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework:spring-context:5.3.22'
 
-	implementation 'io.springfox:springfox-swagger2:2.9.2'
-	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	implementation 'org.slf4j:slf4j-api:2.0.0'
+
 
 	runtimeOnly 'mysql:mysql-connector-java'
-	runtimeOnly 'org.postgresql:postgresql:42.4.0'
+	runtimeOnly 'org.postgresql:postgresql:42.5.0'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -38,7 +48,12 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.24'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+	testImplementation 'org.mockito:mockito-core:4.7.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
 	testImplementation 'com.google.code.gson:gson'
+	testImplementation 'org.springframework:spring-mock:2.0.8'
+	testImplementation 'org.hamcrest:hamcrest-junit:2.0.0.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:4.7.0'
 
 //	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
