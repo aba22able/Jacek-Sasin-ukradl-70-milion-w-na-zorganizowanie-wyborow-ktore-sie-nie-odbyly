@@ -29,12 +29,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework:spring-context:5.3.22'
 
-
 	implementation 'io.springfox:springfox-swagger2:3.0.0'
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-
-	implementation 'org.slf4j:slf4j-api:2.0.0'
-
 
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'org.postgresql:postgresql:42.5.0'
