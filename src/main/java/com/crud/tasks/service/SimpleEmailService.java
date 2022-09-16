@@ -55,4 +55,5 @@ public class SimpleEmailService {
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
         };
     }
+
 }
