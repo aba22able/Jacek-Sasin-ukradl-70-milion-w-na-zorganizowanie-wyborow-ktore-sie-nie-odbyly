@@ -56,4 +56,13 @@ public class SimpleEmailService {
         };
     }
 
+    public MimeMessagePreparator createDailyReminderMessage(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.dailyReminderEmail(), true);
+        };
+    }
+
 }
