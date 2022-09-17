@@ -21,6 +21,7 @@ public class EmailScheduler {
     private final SimpleEmailService simpleEmailService;
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
+    private final JavaMailSender javaMailSender;
 
     @Scheduled(cron = "0 0 10 * * *")
 //    @Scheduled(fixedDelay = 10000)
@@ -47,12 +48,20 @@ public class EmailScheduler {
     {
         long size = taskRepository.count();
 
-        simpleEmailService.sendDailyMail(new Mail(
+        MimeMessagePreparator mime = simpleEmailService.sendDailyMail(new Mail(
                         adminConfig.getAdminMail(),
                         SUBJECT,
                         "Number of your tasks: " + size + ".",
                         null
                 )
         );
+
+        log.info("Starting email preparation...");
+        try {
+            javaMailSender.send(mime);
+            log.info("Email has been sent.");
+        } catch (MailException e) {
+            log.error("Failed to process email sending: " + e.getMessage(), e);
+        }
     }
 }

@@ -48,11 +48,6 @@ public class MailCreatorService {
 
     public String dailyReminderEmail(String message)
     {
-        List<String> functionality = new ArrayList<>();
-        functionality.add("You can manage your tasks");
-        functionality.add("Provides connection with Trello Account");
-        functionality.add("Application allows sending tasks to Trello");
-
         Context context = new Context();
         context.setVariable("tasks_url", "https://aba22able.github.io/");
         context.setVariable("button", "Visit website");
