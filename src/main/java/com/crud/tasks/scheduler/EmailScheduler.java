@@ -44,7 +44,7 @@ public class EmailScheduler {
     }
 
     @Scheduled(cron = "0 0 59 * * *")
-    public void sendDailyReminder(final Mail mail)
+    public void sendDailyReminder()
     {
         long size = taskRepository.count();
 
