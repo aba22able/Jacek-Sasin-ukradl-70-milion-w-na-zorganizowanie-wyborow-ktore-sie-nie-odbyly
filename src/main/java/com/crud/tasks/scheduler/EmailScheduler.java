@@ -43,7 +43,7 @@ public class EmailScheduler {
             );
     }
 
-    @Scheduled(cron = "0 0 59 * * *")
+    @Scheduled(fixedDelay = 10000)
     public void sendDailyReminder()
     {
         long size = taskRepository.count();
