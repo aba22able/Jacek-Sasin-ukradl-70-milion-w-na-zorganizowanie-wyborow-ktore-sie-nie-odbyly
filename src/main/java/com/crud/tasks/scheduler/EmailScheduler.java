@@ -21,7 +21,6 @@ public class EmailScheduler {
     private final SimpleEmailService simpleEmailService;
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
-    private final JavaMailSender javaMailSender;
 
     @Scheduled(cron = "0 0 10 * * *")
 //    @Scheduled(fixedDelay = 10000)
@@ -43,7 +42,7 @@ public class EmailScheduler {
             );
     }
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedRate = 10000)
     public void sendDailyReminder()
     {
         long size = taskRepository.count();
