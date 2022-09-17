@@ -46,7 +46,7 @@ public class MailCreatorService {
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
 
-    public String dailyReminderEmail()
+    public String dailyReminderEmail(String message)
     {
         List<String> functionality = new ArrayList<>();
         functionality.add("You can manage your tasks");
@@ -63,7 +63,7 @@ public class MailCreatorService {
         context.setVariable("company_phone", adminConfig.getCompanyPhone());
         context.setVariable("show_button", false);
         context.setVariable("is_friend", true);
-        context.setVariable("tasks_number", taskRepository.count());
+        context.setVariable("message", message);
         return templateEngine.process("mail/daily-tasks-qty-reminder-mail", context);
     }
 

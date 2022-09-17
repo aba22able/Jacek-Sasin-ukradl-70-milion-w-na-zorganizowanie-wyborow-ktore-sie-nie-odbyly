@@ -46,12 +46,14 @@ public class EmailScheduler {
     @Scheduled(cron = "0 0 59 * * *")
     public void sendDailyReminder(final Mail mail)
     {
-        log.info("Starting email preparation...");
-        try {
-            javaMailSender.send(simpleEmailService.createDailyReminderMessage(mail));
-            log.info("Email has been sent.");
-        } catch (MailException e) {
-            log.error("Failed to process email sending: " + e.getMessage(), e);
-        }
+        long size = taskRepository.count();
+
+        simpleEmailService.sendDailyMail(new Mail(
+                        adminConfig.getAdminMail(),
+                        SUBJECT,
+                        "Number of your tasks: " + size + ".",
+                        null
+                )
+        );
     }
 }
