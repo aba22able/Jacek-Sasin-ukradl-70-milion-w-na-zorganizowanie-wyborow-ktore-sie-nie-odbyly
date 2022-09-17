@@ -6,6 +6,7 @@ import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.service.SimpleEmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -45,6 +46,12 @@ public class EmailScheduler {
     @Scheduled(cron = "0 0 59 * * *")
     public void sendDailyReminder(final Mail mail)
     {
-        javaMailSender.send(simpleEmailService.createDailyReminderMessage(mail));
+        log.info("Starting email preparation...");
+        try {
+            javaMailSender.send(simpleEmailService.createDailyReminderMessage(mail));
+            log.info("Email has been sent.");
+        } catch (MailException e) {
+            log.error("Failed to process email sending: " + e.getMessage(), e);
+        }
     }
 }
